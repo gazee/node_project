@@ -1,15 +1,16 @@
 const express=require("express");
 const app = express()
 const bodyparser = require("body-parser")
-const adminroutes =require('./routes/admin')
+const admindata =require('./routes/admin')
 const userRoutes =require('./routes/shope')
 const path =require('path')
 
 app.use(bodyparser.urlencoded({extended:true}))
+app.use(express.static(path.join(__dirname,"public")))
 
-app.use('/admin',adminroutes)  
+app.use('/admin',admindata)  
 // admin ennu eyuthathe thanne eni
-app.use(adminroutes)
+app.use(admindata)
 app.use(userRoutes)
 //eroor handiling page 
 //its like fanaling
