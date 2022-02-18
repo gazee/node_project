@@ -7,6 +7,7 @@ const path =require('path')
 
 app.set('view engine','ejs');
 app.set('views','views')
+//first view used to refer this
 
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,"public")))
@@ -21,7 +22,7 @@ app.use(userRoutes)
 app.use((req,res,next)=>{
     // res.status(404).send("page not found")
     //res.status(404).sendFile(path.join(__dirname,'views','e404page.html'))
-    res.status(404).render("404",{pageTitile:"page Not found"})
+    res.status(404).render("404",{pageTitile:"page Not found",path:""})
 })
 
 

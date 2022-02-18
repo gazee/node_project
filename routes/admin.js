@@ -3,12 +3,13 @@ const  router = express.Router()
 const path =require('path')
 
 const rootDir=require('../utility/path'  )
+const productcontrollers =require('../controllers/product')
 
-const products =[]
+// const products =[]
 
-router.get('/add-product',(req,res)=>{
+router.get('/add-product',productcontrollers.getAddProduct)
     // res.sendFile(path.join(rootDir,'views','ad-product.html'))
-    res.render("add-project",{pageTitile:"add-page"})
+    res.render("add-project",{pageTitile :"add-page",path:'/admin/add-product'})
     // res.sendFile(path.join(__dirname,'..','views','ad-product.html')); 
      //'/views/ad-product.html. enthu kondu engane ayuthunnnu bcoz of os 
 })
@@ -27,5 +28,5 @@ router.post('/add-product',(req,res)=>{
 
 // module.exports=router
 exports.routes =router;
-exports.products=products
+// exports.products=products
 

@@ -4,8 +4,10 @@ const path =require('path')
 const admindata=require('./admin')
 
 router.get('/',(req,res)=>{
-    console.log('shope',admindata.products)
-    res.sendFile(path.join(__dirname,'..','views','shop.html')); 
+    const product =admindata.products
+    //console.log("from shop page",admindata.products)
+    // res.sendFile(path.join(__dirname,'..','views','shop.html')); 
+    res.render("shope",{pageTitile :"shop page",product:product,path:'/'})
      //path name is joined
 })
 
