@@ -18,8 +18,12 @@ exports.getPro=(req,res)=>{
     
     //console.log("from shop page",admindata.products)
     // res.sendFile(path.join(__dirname,'..','views','shop.html')); 
-    const products =product.fechAll()
-    res.render("shope",{pageTitile :"shop page",products:products,path:'/'})   
-       //path name is joined
-    //evide nammal render te oppam kodukkunna name aanu ejs file il refer cheyunnathu
+    product.fechAll(products=>{
+        res.render("shope",{
+            pageTitile :"shop page",
+            products:products,
+            path:'/'}) 
+    })
+    
+  
 }
