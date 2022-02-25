@@ -5,6 +5,7 @@ const admindata =require('./routes/admin')
 const userRoutes =require('./routes/shope')
 const path =require('path')
 const eroorcontroler =require('./controllers/error')
+const mongoConnect =require('./utility/database').mongoConnect
 
 app.set('view engine','ejs');
 app.set('views','views')
@@ -27,5 +28,9 @@ app.use(eroorcontroler.errorfun)
 //     res.status(404).render("404",{pageTitile:"page Not found",path:""})
 // })
 
+mongoConnect(client =>{
+   // console.log(client)
+   app.listen(3000,()=>{console.log("server started....")})
+})
 
-app.listen(3000,()=>{console.log("server started....")})
+ 

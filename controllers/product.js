@@ -1,6 +1,6 @@
 
-const { fechAll } = require('../models/product');
-const product =require('../models/product')
+
+const Product =require('../models/product')
 
 exports.getAddProduct=(req,res)=>{
     res.render("add-project",{pageTitile :"add-page",path:'/admin/add-product'})
@@ -8,22 +8,41 @@ exports.getAddProduct=(req,res)=>{
 }
 
 exports.postAddproduct=(req,res)=>{
-   const productz=new product(req.body.productName);
+   const productz=new Product(req.body.productName);
     productz.save()
     // products.push({productName:req.body.productName})
     res.redirect('/')
 }
 
-exports.getPro=(req,res)=>{
+// exports.getPro=(req,res)=>{
     
-    //console.log("from shop page",admindata.products)
-    // res.sendFile(path.join(__dirname,'..','views','shop.html')); 
-    product.fechAll(products=>{
-        res.render("shope",{
-            pageTitile :"shop page",
-            products:products,
-            path:'/'}) 
-    })
+//     //console.log("from shop page",admindata.products)
+//     // res.sendFile(path.join(__dirname,'..','views','shop.html')); 
+//     Product.fechAll()
+//         .then(products=>{
+//             res.render("shope",{
+//                 pageTitile :"shop page",
+//                 products:products,
+//                 path:'/'
+//             }) 
+//          })
     
   
-}
+// }
+
+
+exports.getPro = (req,res)=>{
+    //const products = adminData.products
+   //console.log('shopjs',adminData.products)
+    //res.sendFile(path.join(rootDir,'views','shop.html'));
+            Product.fetchAll()
+              .then(products =>{
+                  console.log(products)
+                res.render('shope', {
+                        pageTitile:"Shop", 
+                        products:products, 
+                        path:'/'
+                        });
+                 })
+
+                }
