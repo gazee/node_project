@@ -3,8 +3,11 @@
 const getDb=require('../utility/database').getdb
 
 module.exports=class Product{
-    constructor(pname){
-        this.productName=pname;
+    constructor(pname,price,description,imageUrl){
+        this.productName=pname,
+        this.price =price,
+        this.description=description,
+        this.imageUrl=imageUrl
     }
     save(){
         const Db =getDb();
@@ -24,6 +27,16 @@ module.exports=class Product{
             return products
         })
         .catch(err=>console.log(err))
+    }
+
+    static findById(prodId){
+        const db =getDb();
+
+        return db.collection('products')
+        .findOne({_id:prodId}.then(product =>{
+            console.log(product)
+            return product
+        }))
     }
 
 }

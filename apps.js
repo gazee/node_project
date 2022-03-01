@@ -15,12 +15,11 @@ app.use(bodyparser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,"public")))
 
 app.use('/admin',admindata)  
-// admin ennu eyuthathe thanne eni
-// app.use(admindata)
 app.use(userRoutes)
-//eroor handiling page 
+//last one mathme engane root kodukathe eyuthan paadu
 
 
+/*eroor handiling page */ 
 app.use(eroorcontroler.errorfun)
 //     (req,res,next)=>{
 //     // res.status(404).send("page not found")

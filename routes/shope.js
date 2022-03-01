@@ -5,6 +5,7 @@ const admindata=require('./admin')
 const productcontrollers =require('../controllers/product')
 
 router.get('/',productcontrollers.getPro)
+router.get('/product/:id',productcontrollers.getproduct)
 // (req,res)=>{
 //     const product =admindata.products
 //     //console.log("from shop page",admindata.products)

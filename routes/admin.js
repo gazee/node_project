@@ -13,10 +13,7 @@ router.get('/add-product',productcontrollers.getAddProduct)
 //     // res.sendFile(path.join(__dirname,'..','views','ad-product.html')); 
 //      //'/views/ad-product.html. enthu kondu engane ayuthunnnu bcoz of os 
 // })
-// router.get('/shop',(req,res)=>{
-//     res.sendFile(path.join(__dirname,'.  .','/views/shop.html')); 
-     
-// })
+
 
 router.post('/add-product',productcontrollers.postAddproduct)
 // (req,res)=>{

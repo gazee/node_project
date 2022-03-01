@@ -1,5 +1,4 @@
 
-
 const Product =require('../models/product')
 
 exports.getAddProduct=(req,res)=>{
@@ -8,7 +7,7 @@ exports.getAddProduct=(req,res)=>{
 }
 
 exports.postAddproduct=(req,res)=>{
-   const productz=new Product(req.body.productName);
+   const productz=new Product(req.body.productName,req.body.price,req.body.description,req.body.imageUrl);
     productz.save()
     // products.push({productName:req.body.productName})
     res.redirect('/')
@@ -46,3 +45,16 @@ exports.getPro = (req,res)=>{
                  })
 
                 }
+
+
+exports.getproduct =(req,res)=>{
+    Product.findById(prodId)
+    .then(product =>{
+        res.render('product-details',{
+            product:product,
+            pageTitile:"product.title",
+            path:"Error"
+        })
+    })
+    .catch(err=>(console.log(err)))
+}
