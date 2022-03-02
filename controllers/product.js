@@ -35,26 +35,38 @@ exports.getPro = (req,res)=>{
    //console.log('shopjs',adminData.products)
     //res.sendFile(path.join(rootDir,'views','shop.html'));
             Product.fetchAll()
-              .then(products =>{
+                .then(products =>{
                   console.log(products)
-                res.render('shope', {
+                    res.render('shope', {
                         pageTitile:"Shop", 
                         products:products, 
                         path:'/'
+                    });
+                })
+
+            }
+
+
+// exports.getproduct =(req,res)=>{
+//     Product.findById(prodId)
+//     .then(product =>{
+//         res.render('product-details',{
+//             product:product,
+//             pageTitile:"product.title",
+//             path:"/"
+           
+//         })
+//     })
+//     .catch(err=>(console.log(err)))
+// }
+exports.getProduct = (req,res)=>{
+    const prodId = req.params.id
+             Product.findById(prodId)
+              .then(product =>{
+                res.render('product-details', {
+                        pageTitile:product.title, 
+                        product:product, 
+                        path:'/'
                         });
-                 })
-
-                }
-
-
-exports.getproduct =(req,res)=>{
-    Product.findById(prodId)
-    .then(product =>{
-        res.render('product-details',{
-            product:product,
-            pageTitile:"product.title",
-            path:"Error"
-        })
-    })
-    .catch(err=>(console.log(err)))
+    });
 }

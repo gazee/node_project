@@ -4,8 +4,10 @@ const path =require('path')
 const admindata=require('./admin')
 const productcontrollers =require('../controllers/product')
 
-router.get('/',productcontrollers.getPro)
-router.get('/product/:id',productcontrollers.getproduct)
+router.get('/',productcontrollers.getPro);
+router.get('/product/:id',productcontrollers.getProduct);
+// router.get('/products/:id',productControllers.getProduct);
+
 // (req,res)=>{
 //     const product =admindata.products
 //     //console.log("from shop page",admindata.products)
@@ -14,6 +16,6 @@ router.get('/product/:id',productcontrollers.getproduct)
 //      //path name is joined
 // })
 
-
+ 
 
 module.exports =router

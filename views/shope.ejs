@@ -2,8 +2,8 @@
     <%-include('includes/head.ejs')%> 
     <link rel="stylesheet" href="css/Product.css" >
 </head>
-<!-- <body>
-    <header class="main-header">
+<body>
+    <!-- <header class="main-header">
         <nav class="main-header__nav">
             <ul class="main-header__item-list">
                 <li class="main-header__item"><a href="/">Shop</a></li>
@@ -23,13 +23,15 @@
                     <h1 class="product__title"><%=produc.productName%></h1>
                 </header>
                 <div class="card__image">
-                    <img src="<%=produc.imageUrl%>" alt="apple" width="200" >
+                    <img src="<%=produc.imageUrl%>" alt="<%=produc.productName%>" width="200" >
                 </div>
                 <div class="card__content">
                     <h2 class="product__price"><%=produc.price%></h2>
                     <p class="product__description"><%=produc.description%></p>
                 </div>
-               
+               <div class="centered">
+                   <a href="product/<%=produc._id%>">Details</a>
+               </div>
                 
             </article>
             <%}%> 

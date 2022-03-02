@@ -1,5 +1,5 @@
 
-
+const mongodb =require('mongodb')
 const getDb=require('../utility/database').getdb
 
 module.exports=class Product{
@@ -29,14 +29,23 @@ module.exports=class Product{
         .catch(err=>console.log(err))
     }
 
-    static findById(prodId){
-        const db =getDb();
+    // static findById(prodId){
+    //     const db =getDb();
 
-        return db.collection('products')
-        .findOne({_id:prodId}.then(product =>{
-            console.log(product)
-            return product
-        }))
+    //     return db.collection('products')
+    //     .findOne({_id:prodId}.then(product =>{
+    //         console.log(product)
+    //         return product
+    //     }))
+    // }
+    static findById(prodId) {
+        const db = getDb(); 
+            console.log('product id', prodId);
+            return db.collection('products')
+            .findOne({_id:mongodb.ObjectId(prodId)}).then(product =>{
+                
+                return product
+            })
     }
 
 }
