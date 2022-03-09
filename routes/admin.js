@@ -22,8 +22,8 @@ router.post('/add-product',productcontrollers.postAddproduct)
 //       products.push({productName:req.body.productName})
 //     res.redirect('/')
 // })
-
-
+router.get('/edit-product/:id',productcontrollers.geteditproduct);
+router.post('/edit-product/',productcontrollers.posteditproduct);
 module.exports=router
 // exports.routes =router;
 // exports.products=products

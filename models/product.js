@@ -3,18 +3,30 @@ const mongodb =require('mongodb')
 const getDb=require('../utility/database').getdb
 
 module.exports=class Product{
-    constructor(pname,price,description,imageUrl){
+    constructor(pname,price,description,imageUrl,id){
         this.productName=pname,
         this.price =price,
         this.description=description,
-        this.imageUrl=imageUrl
+        this.imageUrl=imageUrl,
+        this._id=id
     }
     save(){
         const Db =getDb();
-        Db.collection('products')
-        .insertOne(this)
-        .then(result=>console.log(result))
-        .catch(err=>console.log(err))
+        let dbOb ;
+        if(this._id){
+            console.log("from save",this._id);
+            dbOb=Db.collection('products')
+            .updateOne({_id:new mongodb.ObjectId(this._id)},{$set:this} )
+        }else{
+            dbOb=Db.collection('products').insertOne(this)
+        }
+        return dbOb
+            .then(result=>console.log(result))
+            .catch(err=>console.log(err))
+        // Db.collection('products')
+        // .insertOne(this)
+        // .then(result=>console.log(result))
+        // .catch(err=>console.log(err))
     }
 
     static fetchAll(){
@@ -43,7 +55,7 @@ module.exports=class Product{
             console.log('product id', prodId);
             return db.collection('products')
             .findOne({_id:mongodb.ObjectId(prodId)}).then(product =>{
-                
+                console.log(product)
                 return product
             })
     }
