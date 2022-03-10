@@ -4,9 +4,9 @@ const path =require('path')
 const admindata=require('./admin')
 const productcontrollers =require('../controllers/product')
 
-router.get('/',productcontrollers.getPro);
-router.get('/product/:id',productcontrollers.getProduct);
-// router.get('/products/:id',productControllers.getProduct);
+ router.get('/',productcontrollers.getPro);
+ router.get('/product/:id',productcontrollers.getProduct);
+//  router.get('/products/:id',productControllers.getProduct);
 
 // (req,res)=>{
 //     const product =admindata.products

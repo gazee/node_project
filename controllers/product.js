@@ -1,7 +1,8 @@
 
 const res = require('express/lib/response');
 const Product =require('../models/product');
-const mongodb =require('mongodb')
+const mongodb =require('mongodb');
+const product = require('../models/product');
 
  ObjectId =mongodb.ObjectId
 
@@ -11,8 +12,18 @@ exports.getAddProduct=(req,res)=>{
 }
 
 exports.postAddproduct=(req,res)=>{
-   const productz=new Product(req.body.productName,req.body.price,req.body.description,req.body.imageUrl);
-    productz.save()
+    const product =new Product({
+
+            productName:req.body.productName,
+            price:req.body.price,
+            description:req.body.description,
+            imageUrl:req.body.imageUrl    
+    })
+    product.save()
+    .then(res=>{console.log(res,'product added')})
+    .catch(err=>{console.log(err)})
+   //const productz=new Product(req.body.productName,req.body.price,req.body.description,req.body.imageUrl);
+    // productz.save()
     // products.push({productName:req.body.productName})
     res.redirect('/')
 }
@@ -52,9 +63,15 @@ exports.posteditproduct=(req,res)=>{
     const updateimageurl=req.body.imageUrl;
     const updatedescription =req.body.description;
     console.log('from server',prodId)
-    const product=new Product(updateproductName,updateprice,updatedescription,updateimageurl,new ObjectId(prodId) );
-    
-    product.save().then( result =>{
+    //const product=new Product(updateproductName,updateprice,updatedescription,updateimageurl,new ObjectId(prodId) );
+    Product.findByIdAndUpdate(new mongodb.ObjectId(prodId),{
+        productName:updateproductName,
+        price:updateprice,
+        description:updatedescription,
+        imageUrl:updateimageurl
+
+    })
+    .then( result =>{
         console.log("result updated")
         res.redirect('/')
     }).catch(err=>console.log(err))
@@ -62,20 +79,28 @@ exports.posteditproduct=(req,res)=>{
 }
 
 exports.getPro = (req,res)=>{
-    //const products = adminData.products
-   //console.log('shopjs',adminData.products)
-    //res.sendFile(path.join(rootDir,'views','shop.html'));
-            Product.fetchAll()
-                .then(products =>{
-                  console.log(products)
-                    res.render('shope', {
-                        pageTitile:"Shop", 
-                        products:products, 
-                        path:'/'
-                    });
-                })
 
-            }
+    product.find()
+    .then((products)=>{
+        console.log('product list published')
+        res.render('shope', {
+            pageTitile:"Shop", 
+            products:products, 
+            path:'/'});
+    })
+    .catch((err)=>{console.log(err)})
+}
+    // Product.fetchAll()
+    //     .then(products =>{
+    //         console.log(products)
+    //         res.render('shope', {
+    //             pageTitile:"Shop", 
+    //             products:products, 
+    //             path:'/'
+    //         });
+    //     })
+
+    // }
 
 
 // exports.getproduct =(req,res)=>{
@@ -105,7 +130,8 @@ exports.getProduct = (req,res)=>{
 exports.postDeleteProduct=(req,res)=>{
     const prodId =req.body.id;
     //here we take id from body not from params
-    Product.deleteById(prodId)
+    Product.findByIdAndRemove(prodId)
+    //in mongoose connection we dont need to change id into object id
     .then(()=>{
         console.log('product destroed')
         res.redirect('/')
