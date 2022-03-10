@@ -60,6 +60,25 @@ module.exports=class Product{
             })
     }
 
+    static deleteById(prodId){
+        const db=getDb();
+        console.log('from model',prodId)
+        // const vb =new mongodb.ObjectId(prodId)
+        // console.log('from model',vb)
+             return db.collection('products').deleteOne({_id:new mongodb.ObjectId(prodId)})
+            //here prodId is string we need to make it objectId
+            .then((result)=>{console.log('Deleted the product')})
+            .catch(err=>{console.log(err)})
+    }
+    
+    // static deleteById(prodId){
+    //         const db = getDb();
+    //             return db.collection('products').deleteOne(new mongodb.ObjectId(prodId))
+    //             .then(()=>{console.log('Deleted the product')})
+    //             .catch(err=>{console.log(err)})
+    
+    //     }
+    
 }
 
 
@@ -105,3 +124,4 @@ module.exports=class Product{
 // }
 
 // module.exports=product
+

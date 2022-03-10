@@ -101,3 +101,15 @@ exports.getProduct = (req,res)=>{
                 });
             });
 }
+
+exports.postDeleteProduct=(req,res)=>{
+    const prodId =req.body.id;
+    //here we take id from body not from params
+    Product.deleteById(prodId)
+    .then(()=>{
+        console.log('product destroed')
+        res.redirect('/')
+    })
+    
+    .catch((err)=>{console.log(err)})
+}

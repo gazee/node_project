@@ -24,6 +24,9 @@ router.post('/add-product',productcontrollers.postAddproduct)
 // })
 router.get('/edit-product/:id',productcontrollers.geteditproduct);
 router.post('/edit-product/',productcontrollers.posteditproduct);
+router.post('/delete-product',productcontrollers.postDeleteProduct)
+
+
 module.exports=router
 // exports.routes =router;
 // exports.products=products
