@@ -5,6 +5,7 @@ const admindata =require('./routes/admin')
 const userRoutes =require('./routes/shope')
 const path =require('path')
 const eroorcontroler =require('./controllers/error')
+const userdata =require('./routes/user');
 const mongoConnect =require('./utility/database').mongoConnect
 const mongoose =require('mongoose');
 
@@ -16,6 +17,7 @@ app.set('views','views')
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,"public")))
 
+app.use('/user',userdata)
 app.use('/admin',admindata)  
 app.use(userRoutes)
 //last one mathme engane root kodukathe eyuthan paadu

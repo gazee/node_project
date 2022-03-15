@@ -25,10 +25,7 @@ router.post('/add-product',productcontrollers.postAddproduct)
  router.get('/edit-product/:id',productcontrollers.geteditproduct);
  router.post('/edit-product/',productcontrollers.posteditproduct);
  router.post('/delete-product',productcontrollers.postDeleteProduct);
- router.get('/Register',productcontrollers.getregister)
- router.post('/Register',productcontrollers.postregister)
- router.get('/login',productcontrollers.getlogin)
- router.post('/login',productcontrollers.postlogin)
+
 
 module.exports=router
 // exports.routes =router;
