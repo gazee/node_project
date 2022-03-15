@@ -3,46 +3,31 @@ const res = require('express/lib/response');
 const Product =require('../models/product');
 const mongodb =require('mongodb');
 const product = require('../models/product');
+const User = require('../models/user');
 
  ObjectId =mongodb.ObjectId
 
 exports.getAddProduct=(req,res)=>{
-    res.render("add-project",{pageTitile :"add-page",path:'/admin/add-product'})
+    res.render("add-product",{pageTitile :"add-page",path:'/admin/add-product'})
 
 }
 
 exports.postAddproduct=(req,res)=>{
     const product =new Product({
 
-            productName:req.body.productName,
-            price:req.body.price,
-            description:req.body.description,
-            imageUrl:req.body.imageUrl    
+        productName:req.body.productName,
+        price:req.body.price,
+        description:req.body.description,
+        imageUrl:req.body.imageUrl 
+
     })
     product.save()
     .then(res=>{console.log(res,'product added')})
     .catch(err=>{console.log(err)})
-   //const productz=new Product(req.body.productName,req.body.price,req.body.description,req.body.imageUrl);
-    // productz.save()
-    // products.push({productName:req.body.productName})
+   
     res.redirect('/')
 }
-
-// exports.getPro=(req,res)=>{
-    
-//     //console.log("from shop page",admindata.products)
-//     // res.sendFile(path.join(__dirname,'..','views','shop.html')); 
-//     Product.fechAll()
-//         .then(products=>{
-//             res.render("shope",{
-//                 pageTitile :"shop page",
-//                 products:products,
-//                 path:'/'
-//             }) 
-//          })
-    
-  
-// } 
+ 
 exports.geteditproduct=(req,res)=>{
     const prodId=req.params.id;
     console.log(prodId)
@@ -62,9 +47,9 @@ exports.posteditproduct=(req,res)=>{
     const updateprice =req.body.price;
     const updateimageurl=req.body.imageUrl;
     const updatedescription =req.body.description;
-    console.log('from server',prodId)
-    //const product=new Product(updateproductName,updateprice,updatedescription,updateimageurl,new ObjectId(prodId) );
-    Product.findByIdAndUpdate(new mongodb.ObjectId(prodId),{
+    console.log('from server',prodId);
+    
+    Product.findByIdAndUpdate(prodId,{
         productName:updateproductName,
         price:updateprice,
         description:updatedescription,
@@ -117,14 +102,14 @@ exports.getPro = (req,res)=>{
 // }
 exports.getProduct = (req,res)=>{
     const prodId = req.params.id
-             Product.findById(prodId)
-              .then(product =>{
-                res.render('product-details', {
-                        pageTitile:product.title, 
-                        product:product, 
-                        path:'/'
-                });
-            });
+        Product.findById(prodId)
+        .then(product =>{
+            res.render('product-details', {
+                pageTitile:product.title, 
+                product:product, 
+                path:"/"
+        });
+    });
 }
 
 exports.postDeleteProduct=(req,res)=>{
@@ -138,4 +123,64 @@ exports.postDeleteProduct=(req,res)=>{
     })
     
     .catch((err)=>{console.log(err)})
+}
+
+
+exports.getregister = (req,res)=>{
+    res.render('register', {
+        pageTitile:product.title, 
+        path:'/admin/Register'
+    });
+}
+
+exports.postregister =(req,res)=>{
+
+    const user =new User({
+        username:req.body.username,
+        password:req.body.password
+    })
+    console.log(user);
+    user.save()
+    .then(result=>{
+        console.log(result,'user added')
+        // res.render('register')
+        res.render('register', {
+            pageTitile:product.title, 
+            path:'/admin/Register'
+        });
+    })
+    .catch(err=>{console.log(err)})
+
+}
+exports.postlogin=(req,res)=>{
+    const userData =req.body
+    User.findOne({username:userData.username,password:userData.password},(err,user)=>{
+        if(err) throw err;
+        if(!user){
+            console.log("invalid user")
+            res.render('login',{
+                pageTitile:product.title,          
+                path:"/admin/login"
+            }); 
+        }else{
+            console.log(user);
+            Product.find()
+            .then(products=>{
+                res.render('shope', {
+                    pageTitile:"Shop", 
+                    products:products, 
+                    path:'/'
+                });
+            })
+        }   
+    })
+    
+    
+}
+
+exports.getlogin=(req,res)=>{
+    res.render('login',{
+        pageTitile:product.title,          
+        path:"/admin/login"
+    }); 
 }

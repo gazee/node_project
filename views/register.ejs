@@ -1,0 +1,30 @@
+<%-include('includes/head.ejs')%>  
+<!-- <link rel="stylesheet" href="css/Product.css" > -->
+</head>
+<!--  -->
+<body>
+    <%-include('includes/nav.ejs')%>
+
+    <h1>Register</h1>
+    <main>
+        <form action="/admin/Register" method="post" class="product-form">
+            <!-- action & method r importent thing -->
+            <div class="form-control">
+                <label for="productName">Email</label>
+                <input type="text" name="username">
+            </div>
+            <div class="form-control">
+                <label for="imagrUrl">Password</label>
+                <input type="password" name="password">
+            </div>
+           
+            
+            <button class="btn"type="submit">signUp</button>
+            <a class ='btn'href="/admin/login">login</a>
+        </form>
+
+    </main>
+
+
+</body>
+</html>
