@@ -8,6 +8,10 @@ const User = require('../models/user');
  ObjectId =mongodb.ObjectId
 
 exports.getAddProduct=(req,res)=>{
+    if(!req.isAuthenticated()){
+        res.redirect('../user/login')
+    }
+
     res.render("add-product",{pageTitile :"add-page",path:'/admin/add-product'})
 
 }
@@ -64,6 +68,10 @@ exports.posteditproduct=(req,res)=>{
 }
 
 exports.getPro = (req,res)=>{
+
+    if(!req.isAuthenticated()){
+        res.redirect('../user/login')
+    }
 
     product.find()
     .then((products)=>{

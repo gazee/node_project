@@ -1,5 +1,7 @@
 const express=require("express");
 const app = express()
+const passport=require('passport');
+const session=require('express-session');
 const bodyparser = require("body-parser")
 const admindata =require('./routes/admin')
 const userRoutes =require('./routes/shope')
@@ -8,14 +10,25 @@ const eroorcontroler =require('./controllers/error')
 const userdata =require('./routes/user');
 const mongoConnect =require('./utility/database').mongoConnect
 const mongoose =require('mongoose');
+const {initializePassport}=require('./controllers/passport')
 
 
+initializePassport(passport)
 app.set('view engine','ejs');
 app.set('views','views')
 //first view used to refer this
 
 app.use(bodyparser.urlencoded({extended:true}))
 app.use(express.static(path.join(__dirname,"public")))
+app.use(session({
+   secret:'secret',
+   resave:false,
+   saveUninitialized:false
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 app.use('/user',userdata)
 app.use('/admin',admindata)  

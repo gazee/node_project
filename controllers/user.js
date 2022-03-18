@@ -4,7 +4,7 @@ const Product =require('../models/product');
 const mongodb =require('mongodb');
 const product = require('../models/product');
 const User = require('../models/user');
-
+const bcrypt =require('bcrypt')
 
 
 exports.getregister = (req,res)=>{
@@ -14,11 +14,11 @@ exports.getregister = (req,res)=>{
     });
 }
 
-exports.postregister =(req,res)=>{
+exports.postregister =async (req,res)=>{
 
     const user =new User({
         username:req.body.username,
-        password:req.body.password
+        password: await bcrypt.hash(req.body.password,10) 
     })
     console.log(user);
     user.save()
@@ -64,4 +64,9 @@ exports.getlogin=(req,res)=>{
         pageTitile:product.title,          
         path:"/admin/login"
     }); 
+}
+
+exports.userLogout=(req,res)=>{
+    req.logout();
+    res.redirect('/user/login');
 }
